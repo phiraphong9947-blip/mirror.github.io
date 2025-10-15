@@ -1,0 +1,282 @@
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirror My Mind</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", cursive;
+  background: linear-gradient(120deg, #ffd6e8, #e6f0ff, #fff0f5);
+  text-align: center;
+}
+
+.container {
+  padding: 30px 20px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 30px auto;
+  max-width: 700px;
+  box-shadow: 0 8px 20px rgba(255, 153, 204, 0.3);
+}
+
+h1, h2 {
+  color: #ff99cc;
+}
+
+input, select, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid #ffccff;
+  font-size: 1em;
+}
+
+button {
+  background: linear-gradient(45deg, #ffccff, #99ccff);
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #ff99cc, #66b3ff);
+}
+
+.box {
+  border: 2px solid #ffcce0;
+  background: #fff6fa;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 15px 0;
+  text-align: left;
+}
+
+/* ปฏิทิน */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-top: 15px;
+}
+
+.day {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #f9e6ff;
+  font-weight: bold;
+}
+
+.month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.month-header button {
+  padding: 6px 12px;
+  border: none;
+  background: linear-gradient(45deg, #ffccff, #99ccff);
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- หน้า 1 -->
+<div class="container" id="page1">
+  <h1>🧸 Mirror My Mind 🎀</h1>
+  <p>เพราะ"สุขภาพจิต" สำคัญพอ ๆ กับสุขภาพกาย </p>
+  <p>กดเพื่อเริ่มต้นการเดินทางของใจคุณ 💖</p>
+  <button onclick="showPage(2)">Longin</button>
+</div>
+
+<!-- หน้า 2 -->
+<div class="container" id="page2" style="display:none;">
+  <h2>ลงทะเบียน</h2>
+  <p>*เนื่องจากภายในเว็บไซต์มีการเก็บภาพใบหน้า เพื่อการศึกษาเท่านั้นไม่นำไม่เผยแพร่หรือใช้ในเชิงภาณิชย์*</p>
+  <input id="firstName" placeholder="ชื่อ">
+  <input id="lastName" placeholder="นามสกุล">
+  <input id="age" placeholder="อายุ">
+  <select id="gender">
+    <option value="">เพศ</option>
+    <option>ชาย</option>
+    <option>หญิง</option>
+    <option>อื่น ๆ</option>
+  </select>
+  <input id="email" placeholder="อีเมล">
+  <input type="password" id="password" placeholder="รหัสผ่าน">
+  <button onclick="register()">ลงทะเบียน</button>
+  <button onclick="resetPassword()">รีเซ็ทรหัสผ่าน</button>
+  <button onclick="showPage(1)">กลับ</button>
+</div>
+
+<!-- หน้า 3 Info -->
+<div class="container" id="page3" style="display:none;">
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3">
+    </audio>
+    <h2>ภาวะซึมเศร้าต่างจากโรคซึมเศร้า</h2>
+    <div class="box">
+        <h3>ภาวะซึมเศร้า (Depression)</h3>
+        <p>คืออารมณ์เศร้าที่เกิดจากเหตุการณ์ต่าง ๆ ที่เกิดขึ้น หรืออาจจะเกิดจากการคาดการณ์ มักมีอาการเศร้ามากเกินควรและนานเกินไป แต่ยังไม่รุนแรงและมักฟื้นตัวได้เร็วกว่า</p>
+    </div>
+    <div class="box">
+        <h3>โรคซึมเศร้า</h3>
+        <p>เป็นความผิดปกติทางอารมณ์และจิตเวชที่มีอาการเศร้าเรื้อรัง สูญเสียความสนใจ รู้สึกไร้ค่า และมีผลต่อพฤติกรรม อาจมีอาการทางร่างกายร่วมด้วย เช่น กินนอนไม่ปกติ อ่อนเพลีย ต้องได้รับการดูแลจากแพทย์</p>
+    </div>
+    <p>เพราะความรู้สึกของคุณสำคัญ โทรสายด่วนสุขภาพจิต : <strong>1323</strong>ได้ทุกเวลา</p>
+    <button onclick="showPage(4)">ถัดไป</button>
+</div>
+
+<!-- หน้า 4 -->
+<div class="container" id="page4" style="display:none;">
+  <h2>สแกนหน้าเพื่อตรวจอารมณ์ 🎀</h2>
+  <input type="file" id="faceImage" accept="image/*">
+  <button onclick="scanFace()">เริ่มสแกน</button>
+  <button onclick="showPage(3)">กลับ</button>
+</div>
+
+<!-- หน้า 5 -->
+<div class="container" id="page5" style="display:none;">
+  <h2>📊 กราฟระดับอารมณ์</h2>
+  <canvas id="moodChart"></canvas>
+  <button onclick="showEncourage()">รับกำลังใจ 💖</button>
+  <button onclick="showPage(4)">กลับ</button>
+</div>
+
+<!-- หน้า 6 -->
+<div class="container" id="page6" style="display:none;">
+  <h2>Mirror My Mind 🎀</h2>
+  <p id="summaryText"></p>
+  <canvas id="summaryChart"></canvas>
+  <button onclick="showPage(7)">ปฏิทินอารมณ์</button>
+  <button onclick="showPage(5)">กลับ</button>
+</div>
+
+<!-- หน้า 7 -->
+<div class="container" id="page7" style="display:none;">
+  <h2>📅 ปฏิทินอารมณ์</h2>
+  <div class="month-header">
+    <button onclick="changeMonth(-1)">⬅️ ก่อนหน้า</button>
+    <span id="monthTitle"></span>
+    <button onclick="changeMonth(1)">ถัดไป ➡️</button>
+  </div>
+  <div id="calendar" class="calendar"></div>
+  <button onclick="showPage(3)">กลับหน้า 3</button>
+</div>
+
+<script>
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
+
+function showPage(num) {
+  for (let i = 1; i <= 7; i++) {
+    document.getElementById("page" + i).style.display = (i === num) ? "block" : "none";
+  }
+  if (num === 7) drawCalendar();
+}
+
+function register() {
+  alert("สมัครสำเร็จ!");
+  showPage(3);
+}
+
+function resetPassword() {
+  alert("ยังไม่สามารถเปิดใช้งานได้เนื่องจากยังไม่เสร็จค่ะ!");
+}
+
+function scanFace() {
+  const sadness = (Math.random() * 10).toFixed(1);
+  let data = JSON.parse(localStorage.getItem("sadnessData") || "[]");
+  let dates = JSON.parse(localStorage.getItem("dates") || "[]");
+  const today = new Date().toLocaleDateString();
+  data.push(Number(sadness));
+  dates.push(today);
+  localStorage.setItem("sadnessData", JSON.stringify(data));
+  localStorage.setItem("dates", JSON.stringify(dates));
+  alert("ระดับเศร้า: " + sadness);
+  showGraph();
+  showPage(5);
+}
+
+function showGraph() {
+  const ctx = document.getElementById("moodChart").getContext("2d");
+  const data = JSON.parse(localStorage.getItem("sadnessData") || "[]");
+  const dates = JSON.parse(localStorage.getItem("dates") || "[]");
+  new Chart(ctx, {
+    type: "line",
+    data: { labels: dates, datasets: [{ label: "ระดับเศร้า (0-10)", data, borderColor: "#ff99cc", fill: false }] },
+    options: { scales: { y: { min: 0, max: 10 } } }
+  });
+}
+
+function showEncourage() {
+  alert("คุณทำได้ดีมาก! ❤️");
+  showSummary();
+}
+
+function showSummary() {
+  const data = JSON.parse(localStorage.getItem("sadnessData") || "[]");
+  if (!data.length) { alert("ยังไม่มีข้อมูล"); return; }
+  const avg = (data.reduce((a, b) => a + b, 0) / data.length).toFixed(1);
+  document.getElementById("summaryText").innerText = "ค่าเฉลี่ยความเศร้า: " + avg;
+  const ctx = document.getElementById("summaryChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: { labels: ["ค่าเฉลี่ย"], datasets: [{ data: [avg], backgroundColor: "#99ccff" }] },
+    options: { scales: { y: { min: 0, max: 10 } } }
+  });
+  showPage(6);
+}
+
+function drawCalendar() {
+  const months = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+    "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+  const cal = document.getElementById("calendar");
+  cal.innerHTML = "";
+  document.getElementById("monthTitle").innerText = `${months[currentMonth]} ${currentYear}`;
+
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const empty = document.createElement("div");
+    cal.appendChild(empty);
+  }
+
+  const data = JSON.parse(localStorage.getItem("sadnessData") || "[]");
+  const dates = JSON.parse(localStorage.getItem("dates") || "[]");
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cell = document.createElement("div");
+    cell.className = "day";
+    const dateStr = new Date(currentYear, currentMonth, d).toLocaleDateString();
+    if (dates.includes(dateStr)) {
+      const i = dates.indexOf(dateStr);
+      const val = data[i];
+      const emoji = val <= 3 ? "😊" : val <= 6 ? "😐" : "😢";
+      cell.innerText = `${d} ${emoji}`;
+    } else {
+      cell.innerText = d;
+    }
+    cal.appendChild(cell);
+  }
+}
+
+function changeMonth(delta) {
+  currentMonth += delta;
+  if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+  else if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+  drawCalendar();
+}
+</script>
+</body>
+</html>
